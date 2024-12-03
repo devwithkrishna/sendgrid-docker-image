@@ -51,6 +51,8 @@ jobs:
           poetry -v install --no-ansi --no-interaction --only main
 
       - name: run python program
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
         run: |
           poetry run python3 sendgrid_email.py --subject ${{ inputs.subject }} --recepient ${{ inputs.recepient }} --email_body ${{ inputs.email_body }} --cced ${{ inputs.cced }}
 
