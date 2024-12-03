@@ -21,7 +21,7 @@ on:
         default: ""
         type: string
         description: "Email cc'ed to"
-        required: true
+        required: false
 jobs:
   send-email:
     runs-on: ubuntu-latest
