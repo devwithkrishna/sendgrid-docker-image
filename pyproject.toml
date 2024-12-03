@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sendgrid-docker-image"
+version = "0.1.0"
+description = "A docker image to send emails with Sendgrid"
+authors = ["githubofkrishnadhas <krishnadhasnk1997@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
+sendgrid = "6.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

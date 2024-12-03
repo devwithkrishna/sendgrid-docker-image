@@ -1,0 +1,58 @@
+name: send-email
+on:
+  workflow_dispatch:
+    inputs:
+      subject:
+        description: "Emailsubject"
+        type: string
+        default: "Email alert"
+        required: true
+      recepient:
+        default: "krishnadhasnk1997@gmail.com"
+        type: string
+        description: "Email is send to"
+        required: true
+      email_body:
+        default: "Please check this email...."
+        type: string
+        description: "Email body"
+        required: true
+      cced:
+        default: ""
+        type: string
+        description: "Email cc'ed to"
+        required: true
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: githubofkrishnadhas/github-access-using-githubapp@v2
+        id: token-generation
+        with:
+          github_app_id: ${{ secrets.TOKEN_GENERATOR_APPID }}
+          github_app_private_key: ${{ secrets.TOKEN_GENERATOR_PRIVATE_KEY }}
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'devwithkrishna/sendgrid-docker-image'
+          token: ${{ steps.token-generation.outputs.token }}
+          fetch-depth: 1
+
+      - name: set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: package installations
+        run: |
+          pip install poetry
+          poetry -v install --no-ansi --no-interaction --only main
+
+      - name: run python program
+        run: |
+          poetry run python3 sendgrid_email.py --subject ${{ inputs.subject }} --recepient ${{ inputs.recepient }} --email_body ${{ inputs.email_body }} --cced ${{ inputs.cced }}
+
+      - name: program execution completed
+        run: echo "program execution completed"
