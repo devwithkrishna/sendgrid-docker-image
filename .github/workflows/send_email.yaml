@@ -1,8 +1,6 @@
 name: send-email
 on:
   workflow_call:
-
-  workflow_dispatch:
     inputs:
       subject:
         description: "Emailsubject"
