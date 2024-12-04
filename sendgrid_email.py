@@ -78,7 +78,7 @@ def main():
 
 
     recepient = recepients.split(",")
-    cced = cceds.split(",")
+    cced = cceds.split(",") if cceds else []
     # subject = os.environ['subject']
     # email_body = os.environ['email_body']
 
